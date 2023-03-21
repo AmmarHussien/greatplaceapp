@@ -33,6 +33,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    defaultConfig {
+        minSdkVersion 25 // <-- SEE HERE
+        targetSdkVersion 30
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
 
     kotlinOptions {
         jvmTarget = '1.8'
