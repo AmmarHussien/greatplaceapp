@@ -8,6 +8,7 @@ class LocationInput extends StatefulWidget {
   const LocationInput({super.key, required this.onSelectPlace});
 
   final Function onSelectPlace;
+  
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -29,14 +30,17 @@ class _LocationInputState extends State<LocationInput> {
   Future _getCurrentUserLocation() async {
     try {
       final locData = await Location().getLocation();
+
       _showPreview(
         locData.latitude!,
         locData.longitude!,
       );
       widget.onSelectPlace(
-        locData.altitude,
+        locData.latitude,
         locData.longitude,
       );
+      print(locData.latitude);
+      print(locData.longitude);
     } catch (error) {
       return;
     }
@@ -46,7 +50,7 @@ class _LocationInputState extends State<LocationInput> {
     final selectedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (context) => const MapScreen(
+        builder: (context) =>  MapScreen(
           isSelecting: true,
         ),
       ),

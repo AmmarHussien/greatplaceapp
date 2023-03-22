@@ -6,7 +6,7 @@ class MapScreen extends StatefulWidget {
   const MapScreen({
     super.key,
     this.initialLocation =
-        const PlaceLocation(latitude: 37.4226711, longitude: -122.0849872),
+        const PlaceLocation(latitude: 29.8787207, longitude: 31.3098713),
     this.isSelecting = false,
   });
 
@@ -19,6 +19,12 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   LatLng? _pickedLocation;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _selectLocation(LatLng position) {
     setState(() {
       _pickedLocation = position;
@@ -43,12 +49,14 @@ class _MapScreenState extends State<MapScreen> {
         ],
       ),
       body: GoogleMap(
+        mapType: MapType.satellite,
+        trafficEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(
             widget.initialLocation.latitude,
-            widget.initialLocation.longitude,
+            widget.initialLocation.longitude!,
           ),
-          zoom: 20,
+          zoom: 15,
         ),
         onTap: widget.isSelecting ? _selectLocation : null,
         markers: (_pickedLocation == null && widget.isSelecting)
@@ -63,6 +71,7 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                 ),
               },
+        myLocationEnabled: true,
       ),
     );
   }
